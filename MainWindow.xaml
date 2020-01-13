@@ -1,0 +1,97 @@
+﻿<Window x:Class="ControlLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:ControlLauncher"
+        mc:Ignorable="d" Background="Black" Icon="Images/Control.ico"
+        FontFamily="{StaticResource PublicSansLight}" UseLayoutRounding="True"
+		RenderOptions.BitmapScalingMode="HighQuality"
+        WindowStyle="None" ResizeMode="NoResize"
+        Title="Control Launcher" Height="400" Width="640"
+        MouseDown="MainWindow_OnMouseDown" Loaded="MainWindow_OnLoaded" Closing="MainWindow_OnClosing">
+	<Window.Resources>
+		<SolidColorBrush x:Key="WhiteBrush" Color="#E6E6E6" />
+		<SolidColorBrush x:Key="GrayBrush" Color="#898989" />
+
+		<Style TargetType="Button">
+			<Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+			<Setter Property="Background" Value="Black" />
+			<Setter Property="FontSize" Value="19" />
+			<Setter Property="Padding" Value="50,0,0,0" />
+			<Setter Property="Width" Value="250" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="HorizontalContentAlignment" Value="Left" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Grid Background="{TemplateBinding Background}" x:Name="grid">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="4" />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Border x:Name="bd" Background="{StaticResource WhiteBrush}" Visibility="Collapsed" />
+
+							<Border Grid.Column="0" Grid.ColumnSpan="2" Background="Black" HorizontalAlignment="Right" 
+							        Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(local:ControlButtonHelper.InsetWidth)}"/>
+
+							<ContentPresenter Grid.Column="0" Grid.ColumnSpan="2" 
+				                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+				                  Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+				                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" RecognizesAccessKey="True" />
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsDefault" Value="True">
+								<Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
+								<Setter TargetName="bd" Property="Visibility" Value="Visible" />
+							</Trigger>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="grid" Property="Background" Value="{StaticResource WhiteBrush}"/>
+								<Setter Property="Foreground" Value="Black" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="50" />
+			<ColumnDefinition Width="250" />
+			<ColumnDefinition Width="80" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+			<RowDefinition Height="160" />
+			<RowDefinition Height="50" />
+			<RowDefinition Height="50" />
+			<RowDefinition Height="50" />
+			<RowDefinition Height="50" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+        <Image Grid.Column="1" Grid.ColumnSpan="3" Source="Images/control.png" Width="372" HorizontalAlignment="Left" />
+
+		<Button x:Name="DirectX11Button" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Click="LaunchDX11_Click">
+			<TextBlock>Play DirectX <Run FontFamily="{StaticResource PublicSansBold}">11</Run></TextBlock>
+		</Button>
+
+		<Button x:Name="DirectX12Button" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Click="LaunchDX12_Click" Tag="True">
+			<TextBlock BaselineOffset="40">Play DirectX <Run FontFamily="{StaticResource PublicSansBold}">12</Run></TextBlock>
+		</Button>
+
+		<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" local:ControlButtonHelper.InsetWidth="110" Content="Exit" Click="Exit_Click"/>
+		
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" 
+                   Foreground="{StaticResource GrayBrush}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="290" 
+                   TextWrapping="Wrap" FontFamily="{StaticResource PublicSansMedium}">
+			DirectX® 11 Mode is recommended for most users
+			Raytracing is only available in DirectX® 12 Mode
+		</TextBlock>
+
+
+	</Grid>
+</Window>

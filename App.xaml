@@ -1,0 +1,12 @@
+﻿<Application x:Class="ControlLauncher.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ControlLauncher"
+             StartupUri="MainWindow.xaml">
+	<Application.Resources>
+		<FontFamily x:Key="PublicSansLight">pack://application:,,,/Fonts/#Public Sans Light</FontFamily>
+		<FontFamily x:Key="PublicSansRegular">pack://application:,,,/Fonts/#Public Sans</FontFamily>
+		<FontFamily x:Key="PublicSansMedium">pack://application:,,,/Fonts/#Public Sans Medium</FontFamily>
+		<FontFamily x:Key="PublicSansBold">pack://application:,,,/Fonts/#Public Sans Bold</FontFamily>
+	</Application.Resources>
+</Application>
