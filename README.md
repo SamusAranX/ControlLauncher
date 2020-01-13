@@ -11,7 +11,7 @@ I wrote this because Remedy's own launcher requires some ancient .NET version th
 Downloads can be found on the [Releases page](https://github.com/SamusAranX/ControlLauncher/releases).
 
 ## Requirements
-* [.NET Framework 4.8, which comes preinstalled on reasonable up-to-date versions of Windows 10](https://dotnet.microsoft.com/download/dotnet-framework/net48)
+* [.NET Framework 4.8, which comes preinstalled on reasonably up-to-date versions of Windows 10](https://dotnet.microsoft.com/download/dotnet-framework/net48)
 
 ## Screenshots
 ![The one window this app has](screenshot.png)
