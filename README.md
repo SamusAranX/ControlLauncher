@@ -6,6 +6,10 @@ I wrote this because Remedy's own launcher requires some ancient .NET version th
 * Literally all the features of the original launcher, **plus:**
 * The window is draggable
 * The app doesn't require several 100 MBs of additional, optional frameworks
+* Proper HiDPI support
+
+## Notes
+The launcher won't work properly unless it's in the game's folder, next to Control_(DX11|DX12).exe.
 
 ## Download
 Downloads can be found on the [Releases page](https://github.com/SamusAranX/ControlLauncher/releases).
