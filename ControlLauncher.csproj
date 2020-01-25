@@ -99,10 +99,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <Resource Include="Fonts\PublicSans-Medium.ttf" />
-    <Resource Include="Fonts\PublicSans-Regular.ttf" />
-    <Resource Include="Fonts\PublicSans-Light.ttf" />
-    <Resource Include="Fonts\PublicSans-Bold.ttf" />
+    <Resource Include="Fonts\Inter-Bold.otf" />
+    <Resource Include="Fonts\Inter-Regular.otf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

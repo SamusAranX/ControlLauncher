@@ -4,9 +4,6 @@
              xmlns:local="clr-namespace:ControlLauncher"
              StartupUri="MainWindow.xaml">
 	<Application.Resources>
-		<FontFamily x:Key="PublicSansLight">pack://application:,,,/Fonts/#Public Sans Light</FontFamily>
-		<FontFamily x:Key="PublicSansRegular">pack://application:,,,/Fonts/#Public Sans</FontFamily>
-		<FontFamily x:Key="PublicSansMedium">pack://application:,,,/Fonts/#Public Sans Medium</FontFamily>
-		<FontFamily x:Key="PublicSansBold">pack://application:,,,/Fonts/#Public Sans Bold</FontFamily>
+		<FontFamily x:Key="Inter">pack://application:,,,/Fonts/#Inter</FontFamily>
 	</Application.Resources>
 </Application>
