@@ -1,0 +1,116 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:styles="clr-namespace:ControlLauncher.Styles">
+
+	<Style TargetType="styles:WindowButton">
+		<Style.Resources>
+			<SolidColorBrush x:Key="TransparentWhiteBrush" Color="#35FFFFFF" />
+			<SolidColorBrush x:Key="TransparentWhiteBrush2" Color="#69FFFFFF" />
+			<SolidColorBrush x:Key="RedBrush" Color="#E81123" />
+
+			<DrawingImage x:Key="CloseIcon">
+				<DrawingImage.Drawing>
+					<DrawingGroup ClipGeometry="M0,0 V12 H12 V0 H0 Z">
+						<DrawingGroup.Transform>
+							<TranslateTransform X="17" Y="10" />
+						</DrawingGroup.Transform>
+						<DrawingGroup Opacity="1">
+							<DrawingGroup Opacity="1">
+								<GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M12,12z M0,0z M11,10.286L1.714,1 1,1.714 10.286,11 11,10.286z" />
+								<GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M12,12z M0,0z M10.286,1L1,10.286 1.714,11 11,1.714 10.286,1z" />
+							</DrawingGroup>
+						</DrawingGroup>
+					</DrawingGroup>
+				</DrawingImage.Drawing>
+			</DrawingImage>
+
+			<DrawingImage x:Key="MaximizeIcon">
+				<DrawingImage.Drawing>
+					<DrawingGroup ClipGeometry="M0,0 V12 H12 V0 H0 Z">
+						<DrawingGroup.Transform>
+							<TranslateTransform X="17" Y="10" />
+						</DrawingGroup.Transform>
+						<DrawingGroup Opacity="1">
+							<GeometryDrawing Brush="#FFFFFFFF" Geometry="F0 M12,12z M0,0z M11,0L11,10 1,10 1,0 11,0z M10,1L2,1 2,9 10,9 10,1z" />
+						</DrawingGroup>
+					</DrawingGroup>
+				</DrawingImage.Drawing>
+			</DrawingImage>
+
+			<DrawingImage x:Key="MinimizeIcon">
+				<DrawingImage.Drawing>
+					<DrawingGroup ClipGeometry="M0,0 V12 H12 V0 H0 Z">
+						<DrawingGroup.Transform>
+							<TranslateTransform X="17" Y="10" />
+						</DrawingGroup.Transform>
+						<DrawingGroup Opacity="1">
+							<GeometryDrawing Brush="#FFFFFFFF">
+								<GeometryDrawing.Geometry>
+									<RectangleGeometry RadiusX="0" RadiusY="0" Rect="1,5,10,1" />
+								</GeometryDrawing.Geometry>
+							</GeometryDrawing>
+						</DrawingGroup>
+					</DrawingGroup>
+				</DrawingImage.Drawing>
+			</DrawingImage>
+		</Style.Resources>
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Width" Value="46" />
+		<Setter Property="Height" Value="32" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid Background="{TemplateBinding Background}" x:Name="ButtonContainer">
+						<Border x:Name="ButtonColorBG" Opacity="0" Background="{StaticResource RedBrush}" />
+						<Border x:Name="ButtonMouseBG" />
+
+						<Image x:Name="ButtonIcon" Width="12" Height="12"></Image>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ButtonType}" Value="Undefined">
+							<Setter TargetName="ButtonIcon" Property="Source" Value="{x:Null}" />
+						</DataTrigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ButtonType}" Value="Minimize">
+							<Setter TargetName="ButtonIcon" Property="Source" Value="{StaticResource MinimizeIcon}" />
+						</DataTrigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ButtonType}" Value="Maximize">
+							<Setter TargetName="ButtonIcon" Property="Source" Value="{StaticResource MaximizeIcon}" />
+						</DataTrigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ButtonType}" Value="Close">
+							<Setter TargetName="ButtonIcon" Property="Source" Value="{StaticResource CloseIcon}" />
+						</DataTrigger>
+
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="ButtonMouseBG" Property="Background" Value="{StaticResource TransparentWhiteBrush}"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="ButtonMouseBG" Property="Background" Value="{StaticResource TransparentWhiteBrush2}"/>
+						</Trigger>
+
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="styles:WindowButton.ButtonType" Value="Close" />
+								<Condition Property="IsMouseOver" Value="True" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.Setters>
+								<Setter TargetName="ButtonMouseBG" Property="Background" Value="Transparent"/>
+								<Setter TargetName="ButtonColorBG" Property="Opacity" Value="1" />
+							</MultiTrigger.Setters>
+						</MultiTrigger>
+
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="styles:WindowButton.ButtonType" Value="Close" />
+								<Condition Property="IsPressed" Value="True" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.Setters>
+								<Setter TargetName="ButtonMouseBG" Property="Background" Value="Transparent"/>
+								<Setter TargetName="ButtonColorBG" Property="Opacity" Value="0.6" />
+							</MultiTrigger.Setters>
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>

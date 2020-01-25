@@ -73,6 +73,10 @@ namespace ControlLauncher
 			this.Close();
 		}
 
+		private void Minimize_Click(object sender, RoutedEventArgs e) {
+			this.WindowState = WindowState.Minimized;
+		}
+
 		private void Exit_Click(object sender, RoutedEventArgs e)
 		{
 			this.Close();
