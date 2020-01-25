@@ -20,6 +20,11 @@ namespace ControlLauncher
 
 		private static bool Launch(string relativeExePath, string[] args)
 		{
+			#if DEBUG
+			// makes for easier screenshots
+			return true;
+			#endif
+
 			try {
 				var executablePath = Assembly.GetExecutingAssembly().Location;
 				var directoryName = Path.GetDirectoryName(executablePath) ?? @"\";
