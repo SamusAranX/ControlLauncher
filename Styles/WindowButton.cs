@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ControlLauncher.Styles
-{
-	public class WindowButton : Button
-	{
+namespace ControlLauncher.Styles {
+	public class WindowButton : Button {
 		public enum ButtonTypes {
 			Undefined = -1,
 			Minimize = 0,
@@ -23,8 +21,7 @@ namespace ControlLauncher.Styles
 			typeof(WindowButton),
 			new FrameworkPropertyMetadata(ButtonTypes.Undefined, FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.AffectsRender));
 
-		public ButtonTypes ButtonType
-		{
+		public ButtonTypes ButtonType {
 			get => (ButtonTypes)GetValue(ButtonTypeProperty);
 			set => SetValue(ButtonTypeProperty, value);
 		}

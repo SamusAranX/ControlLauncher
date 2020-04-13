@@ -4,32 +4,26 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 
-namespace ControlLauncher
-{
-	internal class Launcher
-	{
-		public static bool LaunchDX11(string[] args)
-		{
+namespace ControlLauncher {
+	internal class Launcher {
+		public static bool LaunchDX11(string[] args) {
 			return Launch("Control_DX11.exe", args);
 		}
 
-		public static bool LaunchDX12(string[] args)
-		{
+		public static bool LaunchDX12(string[] args) {
 			return Launch("Control_DX12.exe", args);
 		}
 
-		private static bool Launch(string relativeExePath, string[] args)
-		{
-			#if DEBUG
+		private static bool Launch(string relativeExePath, string[] args) {
+#if DEBUG
 			// makes for easier screenshots
 			return true;
-			#endif
+#endif
 
 			try {
 				var executablePath = Assembly.GetExecutingAssembly().Location;
 				var directoryName = Path.GetDirectoryName(executablePath) ?? @"\";
-				var process = new Process
-				{
+				var process = new Process {
 					StartInfo =
 					{
 						FileName = relativeExePath,

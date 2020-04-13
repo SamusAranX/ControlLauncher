@@ -4,16 +4,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ControlLauncher
-{
+namespace ControlLauncher {
 	public partial class MainWindow {
-		public MainWindow()
-		{
-			InitializeComponent();
+		public MainWindow() {
+			this.InitializeComponent();
 		}
 
-		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-		{
+		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) {
 			var args = Environment.CommandLine.Split();
 			foreach (var str in args) {
 				var dx11 = str.Equals("-dx11", StringComparison.InvariantCultureIgnoreCase);
@@ -45,7 +42,7 @@ namespace ControlLauncher
 				}
 			}
 
-			Button[] buttons = { DirectX11Button, DirectX12Button };
+			Button[] buttons = { this.DirectX11Button, this.DirectX12Button };
 			var lastButtonChoice = Properties.Settings.Default.LastButtonChoice;
 			if (lastButtonChoice < 0)
 				return;
@@ -53,21 +50,18 @@ namespace ControlLauncher
 			buttons[lastButtonChoice].IsDefault = true;
 		}
 
-		private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
-		{
+		private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e) {
 			if (e.ChangedButton == MouseButton.Left)
-				DragMove();
+				this.DragMove();
 		}
 
-		private void LaunchDX11_Click(object sender, RoutedEventArgs e)
-		{
+		private void LaunchDX11_Click(object sender, RoutedEventArgs e) {
 			Properties.Settings.Default.LastButtonChoice = 0;
 			Launcher.LaunchDX11(Environment.CommandLine.Split());
 			this.Close();
 		}
 
-		private void LaunchDX12_Click(object sender, RoutedEventArgs e)
-		{
+		private void LaunchDX12_Click(object sender, RoutedEventArgs e) {
 			Properties.Settings.Default.LastButtonChoice = 1;
 			Launcher.LaunchDX12(Environment.CommandLine.Split());
 			this.Close();
@@ -77,13 +71,11 @@ namespace ControlLauncher
 			this.WindowState = WindowState.Minimized;
 		}
 
-		private void Exit_Click(object sender, RoutedEventArgs e)
-		{
+		private void Exit_Click(object sender, RoutedEventArgs e) {
 			this.Close();
 		}
 
-		private void MainWindow_OnClosing(object sender, CancelEventArgs e)
-		{
+		private void MainWindow_OnClosing(object sender, CancelEventArgs e) {
 			Properties.Settings.Default.Save();
 		}
 	}

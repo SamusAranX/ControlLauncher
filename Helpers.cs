@@ -3,18 +3,15 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
-namespace ControlLauncher
-{
-	internal class Helpers
-	{
+namespace ControlLauncher {
+	internal class Helpers {
 		[DllImport("CheckDXR")]
 		public static extern bool checkDXR();
 
 		[DllImport("CheckCDLL")]
 		private static extern bool checkCDLL();
 
-		public static bool IsWin7OrWin8()
-		{
+		public static bool IsWin7OrWin8() {
 			var productName = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion")?.GetValue("ProductName").ToString();
 			if (productName == null)
 				return false;
@@ -22,8 +19,7 @@ namespace ControlLauncher
 			return productName.Contains("Windows 7") || productName.Contains("Windows 8");
 		}
 
-		public static bool CheckForCDll()
-		{
+		public static bool CheckForCDll() {
 			var vcInstallAttempted = false;
 
 			try {
@@ -37,7 +33,7 @@ namespace ControlLauncher
 				vcInstallAttempted = true;
 			}
 
-			if (!vcInstallAttempted) 
+			if (!vcInstallAttempted)
 				return true;
 
 			try {
@@ -48,5 +44,5 @@ namespace ControlLauncher
 
 			return true;
 		}
-    }
+	}
 }
