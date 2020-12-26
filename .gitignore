@@ -353,4 +353,4 @@ MigrationBackup/
 .ionide/
 
 # non-free fonts
-Fonts/AkzidGrtskPro*.otf
+AkzidGrtskPro*.otf
