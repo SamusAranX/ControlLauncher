@@ -6,9 +6,9 @@
 		xmlns:styles="clr-namespace:ControlLauncher.Styles"
 		mc:Ignorable="d" Icon="Images/Control.ico"
         UseLayoutRounding="True"
-        TextOptions.TextRenderingMode="Grayscale" TextOptions.TextHintingMode="Animated"
+        TextOptions.TextHintingMode="Fixed"
 		RenderOptions.BitmapScalingMode="HighQuality"
-		FontFamily="{StaticResource Inter}"
+		FontFamily="{StaticResource Akzidenz}"
         WindowStyle="None" ResizeMode="NoResize" Background="#000000" 
         Title="Control Launcher" Height="400" Width="640"
         MouseDown="MainWindow_OnMouseDown" Loaded="MainWindow_OnLoaded" Closing="MainWindow_OnClosing">
@@ -38,10 +38,10 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 
-		<styles:WindowButton x:Name="MinimizeButton" Grid.Column="4" VerticalAlignment="Top" ButtonType="Minimize" Click="Minimize_Click" />
-		<styles:WindowButton x:Name="CloseButton" Grid.Column="5" VerticalAlignment="Top" ButtonType="Close" Click="Exit_Click" />
+		<styles:WindowButton x:Name="MinimizeButton" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" ButtonType="Minimize" Click="Minimize_Click" />
+		<styles:WindowButton x:Name="CloseButton" Grid.Row="0" Grid.Column="5" VerticalAlignment="Top" ButtonType="Close" Click="Exit_Click" />
 
-        <Image Grid.Column="1" Grid.ColumnSpan="3" Source="Images/control.png" Width="372" HorizontalAlignment="Left" />
+		<Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Source="Images/control.png" Width="372" HorizontalAlignment="Left" />
 
 		<styles:MenuButton x:Name="DirectX11Button" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Click="LaunchDX11_Click">
 			<TextBlock>Play DirectX <Run FontWeight="Bold">11</Run></TextBlock>
@@ -55,9 +55,9 @@
 			<TextBlock>Exit</TextBlock>
 		</styles:MenuButton>
 
-		<TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" TextWrapping="Wrap" FontSize="13" 
-                   Foreground="#898989" VerticalAlignment="Center" HorizontalAlignment="Left">
-			DirectX® 11 Mode is recommended for most users
+		<TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" TextWrapping="Wrap" FontSize="12" 
+                   Foreground="#898989" VerticalAlignment="Center">
+			DirectX® 11 Mode is recommended for most users<LineBreak />
 			Raytracing is only available in DirectX® 12 Mode
 		</TextBlock>
 	</Grid>

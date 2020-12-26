@@ -110,6 +110,8 @@
     <None Include="app.manifest" />
     <Resource Include="Fonts\Inter-Bold.otf" />
     <Resource Include="Fonts\Inter-Regular.otf" />
+    <Resource Include="Fonts\AkzidGrtskProBol.otf" />
+    <Resource Include="Fonts\AkzidGrtskProReg.otf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
