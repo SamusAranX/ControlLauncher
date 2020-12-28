@@ -5,6 +5,5 @@
              StartupUri="MainWindow.xaml">
 	<Application.Resources>
 		<FontFamily x:Key="Inter">pack://application:,,,/Fonts/#Inter</FontFamily>
-		<FontFamily x:Key="Akzidenz">pack://application:,,,/Fonts/#Akzidenz-Grotesk Pro</FontFamily>
 	</Application.Resources>
 </Application>

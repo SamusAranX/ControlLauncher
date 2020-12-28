@@ -8,7 +8,7 @@
         UseLayoutRounding="True"
         TextOptions.TextHintingMode="Fixed"
 		RenderOptions.BitmapScalingMode="HighQuality"
-		FontFamily="{StaticResource Akzidenz}"
+		FontFamily="{StaticResource Inter}"
         WindowStyle="None" ResizeMode="NoResize" Background="#000000" 
         Title="Control Launcher" Height="400" Width="640"
         MouseDown="MainWindow_OnMouseDown" Loaded="MainWindow_OnLoaded" Closing="MainWindow_OnClosing">

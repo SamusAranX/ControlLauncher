@@ -5,10 +5,10 @@ using Microsoft.Win32;
 
 namespace ControlLauncher {
 	internal class Helpers {
-		[DllImport("CheckDXR")]
+		[DllImport("CheckDXR.dll")]
 		public static extern bool checkDXR();
 
-		[DllImport("CheckCDLL")]
+		[DllImport("CheckCDLL.dll")]
 		private static extern bool checkCDLL();
 
 		public static bool IsWin7OrWin8() {
@@ -25,12 +25,15 @@ namespace ControlLauncher {
 			try {
 				checkCDLL();
 			} catch (Exception) {
+				Debug.WriteLine("VC++ Redistributable check failed!");
+#if !DEBUG
 				var vcProcess = Process.Start("vc_redist.x64.exe", "/install /norestart");
 				if (vcProcess == null)
 					return false;
 
 				vcProcess.WaitForExit();
 				vcInstallAttempted = true;
+#endif
 			}
 
 			if (!vcInstallAttempted)
