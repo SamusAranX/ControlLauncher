@@ -2,20 +2,34 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using ControlLauncher.RMDP;
+using ControlLauncher.Styles;
 
 namespace ControlLauncher {
 	public partial class MainWindow {
+
+		private readonly ControllerManager controllerManager;
+		private MenuButton[] allButtons;
+
 		public MainWindow() {
 			this.InitializeComponent();
+
+			this.controllerManager = new ControllerManager();
+			if (!this.controllerManager.Initialize()) {
+				Debug.WriteLine("Controller initialization failed!");
+				return;
+			}
+			this.controllerManager.Start();
+			this.controllerManager.ButtonPressed += this.ControllerButtonPressed;
 		}
 
-		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) {
+		private void LoadFonts() {
 			var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 			var fontsMissing = false;
@@ -43,10 +57,13 @@ namespace ControlLauncher {
 				Debug.WriteLine("font files found");
 				var fontFamilyPath = Path.Combine(exePath, "#Akzidenz-Grotesk Pro");
 				this.FontFamily = new FontFamily(fontFamilyPath);
-				// set font here
 			}
+		}
 
-			var args = Environment.CommandLine.Split();
+		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) {
+			this.LoadFonts();
+
+			var args = Helpers.GetCommandLineArgs();
 			foreach (var str in args) {
 				var dx11 = str.Equals("-dx11", StringComparison.InvariantCultureIgnoreCase);
 				var dx12 = str.Equals("-dx12", StringComparison.InvariantCultureIgnoreCase);
@@ -67,7 +84,7 @@ namespace ControlLauncher {
 				this.Close();
 			} else {
 				try {
-					if (!Helpers.checkDXR()) {
+					if (!Helpers.CheckDXR()) {
 						Launcher.LaunchDX11(args);
 						this.Close();
 					}
@@ -78,12 +95,19 @@ namespace ControlLauncher {
 				}
 			}
 
-			Button[] buttons = { this.DirectX11Button, this.DirectX12Button };
+			this.allButtons = new MenuButton[] { this.DirectX11Button, this.DirectX12Button, this.ExitButton };
 			var lastButtonChoice = Properties.Settings.Default.LastButtonChoice;
-			if (lastButtonChoice < 0)
-				return;
+			if (lastButtonChoice >= 0) {
+				this.allButtons[lastButtonChoice].IsDefault = true;
+				this.allButtons[lastButtonChoice].Focus();
+			} else {
+				this.allButtons[0].Focus();
+			}
+		}
 
-			buttons[lastButtonChoice].IsDefault = true;
+		private void MainWindow_OnClosing(object sender, CancelEventArgs e) {
+			this.controllerManager.Stop();
+			Properties.Settings.Default.Save();
 		}
 
 		private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e) {
@@ -91,15 +115,53 @@ namespace ControlLauncher {
 				this.DragMove();
 		}
 
+		private void ControllerButtonPressed(object sender, ButtonPressedEventArgs e) {
+			int mod(int x, int m) {
+				var r = x % m;
+				return r < 0 ? r + m : r;
+			}
+
+			Application.Current.Dispatcher.Invoke(() => {
+				var focusedButton = Keyboard.FocusedElement as MenuButton ?? this.allButtons.First(b => b.IsFocused);
+				var focusedButtonTag = int.Parse((string)focusedButton.Tag);
+				var newFocusedButton = -1;
+
+				Debug.WriteLine($"Focused Button: {focusedButton.Tag}");
+
+				switch (e.ButtonPressed) {
+					case GamepadButton.ButtonA:
+						Debug.WriteLine("Click!");
+						focusedButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+						Debug.WriteLine("Clicked!");
+						return;
+
+					case GamepadButton.ButtonDPadDown:
+						Debug.WriteLine("Down!");
+						newFocusedButton = mod(focusedButtonTag + 1, 3);
+						break;
+
+					case GamepadButton.ButtonDPadUp:
+						Debug.WriteLine("Up!");
+						newFocusedButton = mod(focusedButtonTag - 1, 3);
+						break;
+
+					default:
+						return;
+				}
+
+				this.allButtons[newFocusedButton].Focus();
+			});
+		}
+
 		private void LaunchDX11_Click(object sender, RoutedEventArgs e) {
 			Properties.Settings.Default.LastButtonChoice = 0;
-			Launcher.LaunchDX11(Environment.CommandLine.Split());
+			Launcher.LaunchDX11(Helpers.GetCommandLineArgs());
 			this.Close();
 		}
 
 		private void LaunchDX12_Click(object sender, RoutedEventArgs e) {
 			Properties.Settings.Default.LastButtonChoice = 1;
-			Launcher.LaunchDX12(Environment.CommandLine.Split());
+			Launcher.LaunchDX12(Helpers.GetCommandLineArgs());
 			this.Close();
 		}
 
@@ -109,10 +171,6 @@ namespace ControlLauncher {
 
 		private void Exit_Click(object sender, RoutedEventArgs e) {
 			this.Close();
-		}
-
-		private void MainWindow_OnClosing(object sender, CancelEventArgs e) {
-			Properties.Settings.Default.Save();
 		}
 	}
 }

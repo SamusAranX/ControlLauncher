@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ControlLauncher.Styles {
 	public class MenuButton : Button {
@@ -17,6 +13,11 @@ namespace ControlLauncher.Styles {
 		public double InsetWidth {
 			get => (double)GetValue(InsetWidthProperty);
 			set => SetValue(InsetWidthProperty, value);
+		}
+
+		protected override void OnMouseEnter(MouseEventArgs e) {
+			base.OnMouseEnter(e);
+			this.Focus();
 		}
 	}
 }

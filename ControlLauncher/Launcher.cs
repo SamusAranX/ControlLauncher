@@ -16,7 +16,10 @@ namespace ControlLauncher {
 
 		private static bool Launch(string relativeExePath, string[] args) {
 #if DEBUG
-			// makes for easier screenshots
+			// makes for easier debugging
+			var argsString = string.Join(" ", args).Trim();
+			var argsMessage = argsString == "" ? "no args" : $"args \"{argsString}\"";
+			MessageBox.Show($"Starting {relativeExePath} with {argsMessage}");
 			return true;
 #endif
 

@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ControllerManager.cs" />
     <Compile Include="RMDP\BetterBinaryReader.cs" />
     <Compile Include="RMDP\RMDPExtractor.cs" />
     <Compile Include="Styles\MenuButton.cs" />
