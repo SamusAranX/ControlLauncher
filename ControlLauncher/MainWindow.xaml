@@ -9,7 +9,7 @@
         TextOptions.TextHintingMode="Fixed"
 		RenderOptions.BitmapScalingMode="HighQuality"
 		FontFamily="{StaticResource Inter}"
-        WindowStyle="None" ResizeMode="NoResize" Background="#000000" 
+        WindowStyle="None" ResizeMode="NoResize" Background="#000000"
         Title="Control Launcher" Height="400" Width="640"
         MouseDown="MainWindow_OnMouseDown" Loaded="MainWindow_OnLoaded" Closing="MainWindow_OnClosing">
 	<Window.Resources>
@@ -28,6 +28,7 @@
 			<ColumnDefinition />
 			<ColumnDefinition Width="46" />
 			<ColumnDefinition Width="46" />
+			<ColumnDefinition Width="46" />
 		</Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
 			<RowDefinition Height="160" />
@@ -38,9 +39,13 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 
-		<styles:WindowButton x:Name="MinimizeButton" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" 
+		<!-- TODO: Add About dialog -->
+
+		<styles:WindowButton x:Name="InfoButton" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" 
+		                     ButtonType="Info" Click="Info_Click" />
+		<styles:WindowButton x:Name="MinimizeButton" Grid.Row="0" Grid.Column="5" VerticalAlignment="Top" 
 		                     ButtonType="Minimize" Click="Minimize_Click" />
-		<styles:WindowButton x:Name="CloseButton" Grid.Row="0" Grid.Column="5" VerticalAlignment="Top" 
+		<styles:WindowButton x:Name="CloseButton" Grid.Row="0" Grid.Column="6" VerticalAlignment="Top" 
 		                     ButtonType="Close" Click="Exit_Click" />
 
 		<Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" 

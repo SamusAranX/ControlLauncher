@@ -7,7 +7,8 @@ namespace ControlLauncher.Styles {
 			Undefined = -1,
 			Minimize = 0,
 			Maximize = 1,
-			Close = 2
+			Close = 2,
+			Info = 3,
 		}
 
 		public static readonly DependencyProperty ButtonTypeProperty = DependencyProperty.RegisterAttached(

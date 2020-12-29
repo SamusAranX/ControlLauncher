@@ -7,8 +7,6 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media;
-using ControlLauncher.RMDP;
 using ControlLauncher.Styles;
 
 namespace ControlLauncher {
@@ -29,39 +27,31 @@ namespace ControlLauncher {
 			this.controllerManager.ButtonPressed += this.ControllerButtonPressed;
 		}
 
-		private void LoadFonts() {
+		private bool CheckIfGameExists() {
 			var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			var gameFiles = new[] {
+				"Control_DX11.exe",
+				"Control_DX12.exe",
+			};
 
-			var fontsMissing = false;
-			foreach (var fontPath in RMDPExtractor.FontPaths) {
-				var localFontPath = Path.Combine(exePath, Path.GetFileName(fontPath));
-				if (!File.Exists(localFontPath)) {
-					fontsMissing = true;
-					break;
-				}
+			foreach (var file in gameFiles) {
+				var filePath = Path.Combine(exePath, file);
+				if (!File.Exists(filePath))
+					return false;
 			}
 
-			if (fontsMissing) {
-				Debug.WriteLine("fonts are missing, will extract them");
-				try {
-					RMDPExtractor.ExtractGameFiles(exePath, "ep100-000-generic", RMDPExtractor.FontPaths);
-					Debug.WriteLine("font files extracted");
-				} catch (Exception exception) {
-					Debug.WriteLine(exception);
-					throw;
-					// do nothing, FontFamily will be set to Inter in the XAML
-				}
-			}
-
-			if (!fontsMissing) {
-				Debug.WriteLine("font files found");
-				var fontFamilyPath = Path.Combine(exePath, "#Akzidenz-Grotesk Pro");
-				this.FontFamily = new FontFamily(fontFamilyPath);
-			}
+			return true;
 		}
 
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) {
-			this.LoadFonts();
+			var akzidenz = (App.Current as App)?.AkzidenzGrotesk;
+			if (akzidenz != null)
+				this.FontFamily = akzidenz;
+
+			if (!this.CheckIfGameExists()) {
+				MessageBox.Show("Please move the launcher into Control's game directory.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				Application.Current.Shutdown(1);
+			}
 
 			var args = Helpers.GetCommandLineArgs();
 			foreach (var str in args) {
@@ -78,7 +68,7 @@ namespace ControlLauncher {
 
 			if (!Helpers.CheckForCDll()) {
 				MessageBox.Show("Microsoft Visual C++ Redistributable installation failed.", "Installation failed", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
+				Application.Current.Shutdown(1);
 			} else if (Helpers.IsWin7OrWin8()) {
 				Launcher.LaunchDX11(args);
 				this.Close();
@@ -91,7 +81,7 @@ namespace ControlLauncher {
 				} catch (Exception ex) {
 					Debug.WriteLine(ex);
 					MessageBox.Show("Something went wrong.", "General Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+					Application.Current.Shutdown(1);
 				}
 			}
 
@@ -163,6 +153,11 @@ namespace ControlLauncher {
 			Properties.Settings.Default.LastButtonChoice = 1;
 			Launcher.LaunchDX12(Helpers.GetCommandLineArgs());
 			this.Close();
+		}
+
+		private void Info_Click(object sender, RoutedEventArgs e) {
+			var aboutDialog = new AboutDialog {Owner = this};
+			aboutDialog.ShowDialog();
 		}
 
 		private void Minimize_Click(object sender, RoutedEventArgs e) {

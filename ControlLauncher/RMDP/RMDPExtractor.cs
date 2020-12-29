@@ -17,7 +17,7 @@ namespace ControlLauncher.RMDP {
 	}
 
 	internal class RMDPExtractor {
-		public static readonly string[] FontPaths = {
+		public static readonly string[] AkzidenzGroteskPaths = {
 			"data/uiresources/p7/fonts/AkzidGrtskProBol.otf",
 			"data/uiresources/p7/fonts/AkzidGrtskProReg.otf",
 		};

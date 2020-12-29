@@ -43,9 +43,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Crc32.NET">
-      <HintPath>..\packages\Crc32.NET.1.2.0\lib\net20\Crc32.NET.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -66,11 +63,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ControllerManager.cs" />
+    <Compile Include="CRC32\Crc32Algorithm.cs" />
+    <Compile Include="CRC32\SafeProxy.cs" />
     <Compile Include="RMDP\BetterBinaryReader.cs" />
     <Compile Include="RMDP\RMDPExtractor.cs" />
+    <Compile Include="Styles\BetterHyperlink.cs" />
     <Compile Include="Styles\MenuButton.cs" />
     <Compile Include="Styles\WindowButton.cs" />
+    <Page Include="AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +92,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Styles\BetterHyperlink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\MenuButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,7 +126,6 @@
     <None Include="app.manifest" />
     <Resource Include="Fonts\Inter-Bold.otf" />
     <Resource Include="Fonts\Inter-Regular.otf" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -130,6 +140,8 @@
   <ItemGroup>
     <Resource Include="Images\control.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="CRC32\LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
