@@ -31,4 +31,4 @@ Downloads can be found on the [Releases page](https://github.com/SamusAranX/Cont
 ## Screenshots
 
 ![Screenshot of the launcher window](screenshots/launcher.png)
-![Screenshot of the About window](screenshots/bout.png)
+![Screenshot of the About window](screenshots/about.png)
