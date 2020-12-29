@@ -27,31 +27,10 @@ namespace ControlLauncher {
 			this.controllerManager.ButtonPressed += this.ControllerButtonPressed;
 		}
 
-		private bool CheckIfGameExists() {
-			var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			var gameFiles = new[] {
-				"Control_DX11.exe",
-				"Control_DX12.exe",
-			};
-
-			foreach (var file in gameFiles) {
-				var filePath = Path.Combine(exePath, file);
-				if (!File.Exists(filePath))
-					return false;
-			}
-
-			return true;
-		}
-
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) {
 			var akzidenz = (App.Current as App)?.AkzidenzGrotesk;
 			if (akzidenz != null)
 				this.FontFamily = akzidenz;
-
-			if (!this.CheckIfGameExists()) {
-				MessageBox.Show("Please move the launcher into Control's game directory.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				Application.Current.Shutdown(1);
-			}
 
 			var args = Helpers.GetCommandLineArgs();
 			foreach (var str in args) {
