@@ -6,7 +6,7 @@
 		xmlns:styles="clr-namespace:ControlLauncher.Styles"
 		mc:Ignorable="d" Icon="Images/Control.ico"
         UseLayoutRounding="True"
-        TextOptions.TextHintingMode="Fixed"
+        TextOptions.TextHintingMode="Fixed" TextOptions.TextRenderingMode="Grayscale"
 		RenderOptions.BitmapScalingMode="HighQuality"
 		FontFamily="{StaticResource Inter}"
         WindowStyle="None" ResizeMode="NoResize" Background="#000000"

@@ -9,6 +9,7 @@ I wrote this because Remedy's own launcher requires some ancient .NET version th
 * The window can be minimized
 * The app doesn't require several 100 MBs of additional, optional frameworks
 * Proper HiDPI support
+* Support for keyboard navigation
 
 ## Notes for users
 
@@ -29,4 +30,5 @@ Downloads can be found on the [Releases page](https://github.com/SamusAranX/Cont
 
 ## Screenshots
 
-![Screenshot of the launcher window](screenshot.png)
+![Screenshot of the launcher window](screenshots/launcher.png)
+![Screenshot of the About window](screenshots/bout.png)
