@@ -17,11 +17,6 @@ namespace ControlLauncher.RMDP {
 	}
 
 	internal class RMDPExtractor {
-		public static readonly string[] AkzidenzGroteskPaths = {
-			"data/uiresources/p7/fonts/AkzidGrtskProBol.otf",
-			"data/uiresources/p7/fonts/AkzidGrtskProReg.otf",
-		};
-
 		private static string GetName(BinaryReader reader, ulong tableSize, ulong nameOffset) {
 			// save current stream position
 			var position = reader.BaseStream.Position;

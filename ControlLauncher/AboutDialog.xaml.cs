@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ControlLauncher {
 	/// <summary>
@@ -21,6 +22,11 @@ namespace ControlLauncher {
 
 		private void Close_Click(object sender, RoutedEventArgs e) {
 			this.Close();
+		}
+
+		private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+			if (e.ChangedButton == MouseButton.Left)
+				this.DragMove();
 		}
 	}
 }

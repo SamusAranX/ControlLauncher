@@ -11,22 +11,28 @@ namespace ControlLauncher {
 
 		public FontFamily AkzidenzGrotesk { get; private set; }
 
+		private static readonly string[] AkzidenzGroteskPaths = {
+			"data/uiresources/p7/fonts/AkzidGrtskProBol.otf",
+			"data/uiresources/p7/fonts/AkzidGrtskProReg.otf",
+		};
+
+		private bool CheckFontExistence(string path) {
+			foreach (var fontPath in AkzidenzGroteskPaths) {
+				var localFontPath = Path.Combine(path, Path.GetFileName(fontPath));
+				if (!File.Exists(localFontPath))
+					return false;
+			}
+
+			return true;
+		}
+
 		private void LoadFonts() {
 			var exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-			var fontsMissing = false;
-			foreach (var fontPath in RMDPExtractor.AkzidenzGroteskPaths) {
-				var localFontPath = Path.Combine(exePath, Path.GetFileName(fontPath));
-				if (!File.Exists(localFontPath)) {
-					fontsMissing = true;
-					break;
-				}
-			}
-
-			if (fontsMissing) {
+			if (!CheckFontExistence(exePath)) {
 				Debug.WriteLine("fonts are missing, will extract them");
 				try {
-					RMDPExtractor.ExtractGameFiles(exePath, "ep100-000-generic", RMDPExtractor.AkzidenzGroteskPaths);
+					RMDPExtractor.ExtractGameFiles(exePath, "ep100-000-generic", AkzidenzGroteskPaths);
 					Debug.WriteLine("font files extracted");
 				} catch (Exception exception) {
 					Debug.WriteLine(exception);
@@ -34,7 +40,8 @@ namespace ControlLauncher {
 				}
 			}
 
-			if (!fontsMissing) {
+			// recheck font existence and load them
+			if (CheckFontExistence(exePath)) {
 				Debug.WriteLine("font files found");
 				var fontFamilyPath = Path.Combine(exePath, "#Akzidenz-Grotesk Pro");
 				this.AkzidenzGrotesk = new FontFamily(fontFamilyPath);

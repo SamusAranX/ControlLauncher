@@ -26,11 +26,10 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="32" />
-			<RowDefinition Height="42" />
 			<RowDefinition />
 	    </Grid.RowDefinitions>
 
-		<Grid Background="#22FFFFFF">
+		<Grid Background="#22FFFFFF" MouseDown="Grid_MouseDown">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition Width="46" />
@@ -44,27 +43,20 @@
 			                     ButtonType="Close" Click="Close_Click" />
 		</Grid>
 
-		<Grid Grid.Row="1" Margin="8,0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-
-			<Label Content="Acknowledgements" Foreground="#898989" 
-			       FontSize="22" FontWeight="Bold" VerticalAlignment="Bottom" />
-		</Grid>
-
-		<ScrollViewer Grid.Row="2" Grid.ColumnSpan="4" Margin="4" Padding="8">
-			<TextBlock Foreground="#898989" FontSize="14" TextWrapping="Wrap">
-				<styles:BetterHyperlink NavigateUri="https://github.com/Nostritius/AWTools">AWTools</styles:BetterHyperlink>
+		<ScrollViewer Grid.Row="1" Margin="4" Padding="8">
+			<TextBlock Foreground="#898989" FontSize="14" TextWrapping="Wrap" LineHeight="20">
+				<Run FontSize="22" FontWeight="Bold">Acknowledgements</Run>
 				<LineBreak/><LineBreak/>
+
+				<styles:BetterHyperlink NavigateUri="https://github.com/Nostritius/AWTools">AWTools</styles:BetterHyperlink>
+				<LineBreak/>
 
 				<Run>Special thanks to this project for providing all the necessary information to build
 				an RMDP file extractor.</Run>
 				<LineBreak/><LineBreak/>
 				
 				<styles:BetterHyperlink NavigateUri="https://github.com/force-net/Crc32.NET">Crc32.NET</styles:BetterHyperlink>
-				<LineBreak/><LineBreak/>
+				<LineBreak/>
 
 				<Run>The MIT License (MIT)</Run>
 				<LineBreak/><LineBreak/>

@@ -20,6 +20,7 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Window.Resources>
+
 	<Grid KeyboardNavigation.TabNavigation="Cycle" KeyboardNavigation.AcceptsReturn="True">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="50" />
