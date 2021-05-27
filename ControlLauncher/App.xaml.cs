@@ -32,7 +32,9 @@ namespace ControlLauncher {
 			if (!CheckFontExistence(exePath)) {
 				Debug.WriteLine("fonts are missing, will extract them");
 				try {
-					RMDPExtractor.ExtractGameFiles(exePath, "ep100-000-generic", AkzidenzGroteskPaths);
+					if (!RMDPExtractor.ExtractGameFiles(exePath, "ep100-000-generic", AkzidenzGroteskPaths))
+						return;
+
 					Debug.WriteLine("font files extracted");
 				} catch (Exception exception) {
 					Debug.WriteLine(exception);
@@ -49,6 +51,9 @@ namespace ControlLauncher {
 		}
 
 		private void App_OnStartup(object sender, StartupEventArgs e) {
+			if (!Helpers.IsLauncherInGameDir())
+				MessageBox.Show("Please put this launcher into Control's game directory.", "Installation failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+
 			this.LoadFonts();
 		}
 	}

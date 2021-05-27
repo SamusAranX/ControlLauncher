@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -32,6 +30,10 @@ namespace ControlLauncher {
 			if (akzidenz != null)
 				this.FontFamily = akzidenz;
 
+			// Don't do all these additional things if the launcher is not in the game directory
+			if (!Helpers.IsLauncherInGameDir())
+				return;
+
 			var args = Helpers.GetCommandLineArgs();
 			foreach (var str in args) {
 				var dx11 = str.Equals("-dx11", StringComparison.InvariantCultureIgnoreCase);
@@ -45,22 +47,16 @@ namespace ControlLauncher {
 				}
 			}
 
-			if (!Helpers.CheckForCDll()) {
+			if (!Helpers.CheckForRedistributable()) {
 				MessageBox.Show("Microsoft Visual C++ Redistributable installation failed.", "Installation failed", MessageBoxButton.OK, MessageBoxImage.Error);
 				Application.Current.Shutdown(1);
 			} else if (Helpers.IsWin7OrWin8()) {
 				Launcher.LaunchDX11(args);
 				this.Close();
 			} else {
-				try {
-					if (!Helpers.CheckDXR()) {
-						Launcher.LaunchDX11(args);
-						this.Close();
-					}
-				} catch (Exception ex) {
-					Debug.WriteLine(ex);
-					MessageBox.Show("Something went wrong.", "General Error", MessageBoxButton.OK, MessageBoxImage.Error);
-					Application.Current.Shutdown(1);
+				if (!Helpers.CheckForRaytracing()) {
+					Launcher.LaunchDX11(args);
+					this.Close();
 				}
 			}
 
@@ -85,7 +81,7 @@ namespace ControlLauncher {
 		}
 
 		private void ControllerButtonPressed(object sender, ButtonPressedEventArgs e) {
-			int mod(int x, int m) {
+			static int mod(int x, int m) {
 				var r = x % m;
 				return r < 0 ? r + m : r;
 			}

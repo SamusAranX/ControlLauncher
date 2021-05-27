@@ -30,8 +30,12 @@ namespace ControlLauncher {
 		public event ButtonPressedHandler ButtonPressed;
 
 		public bool Initialize() {
-			if (!XInputWrapper_init())
+			try {
+				if (!XInputWrapper_init())
+					return false;
+			} catch (DllNotFoundException) {
 				return false;
+			}
 
 			this.workerThread = new Thread(this.Update);
 			return true;

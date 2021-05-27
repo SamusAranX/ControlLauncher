@@ -7,7 +7,7 @@ using Microsoft.Win32;
 namespace ControlLauncher {
 	internal class Helpers {
 		[DllImport("CheckDXR.dll", EntryPoint = "checkDXR")]
-		public static extern bool CheckDXR();
+		private static extern bool CheckDXR();
 
 		[DllImport("CheckCDLL.dll", EntryPoint = "checkCDLL")]
 		private static extern bool CheckCDLL();
@@ -23,13 +23,12 @@ namespace ControlLauncher {
 			return productName.Contains("Windows 7") || productName.Contains("Windows 8");
 		}
 
-		public static bool CheckForCDll() {
+		public static bool CheckForRedistributable() {
 			var vcInstallAttempted = false;
 
-			try {
-				CheckCDLL();
-			} catch (Exception) {
-				Debug.WriteLine("VC++ Redistributable check failed!");
+			if (CheckCDLL()) {
+				return true;
+			} else {
 #if !DEBUG
 				var vcProcess = Process.Start("vc_redist.x64.exe", "/install /norestart");
 				if (vcProcess == null)
@@ -43,9 +42,18 @@ namespace ControlLauncher {
 			if (!vcInstallAttempted)
 				return true;
 
+			return CheckCDLL();
+		}
+
+		public static bool CheckForRaytracing() {
+			return CheckDXR();
+		}
+
+		public static bool IsLauncherInGameDir() {
 			try {
+				CheckDXR();
 				CheckCDLL();
-			} catch (Exception) {
+			} catch (DllNotFoundException) {
 				return false;
 			}
 
@@ -56,6 +64,7 @@ namespace ControlLauncher {
 			var argv = CommandLineToArgvW(commandLine, out var argc);
 			if (argv == IntPtr.Zero)
 				return new string[] { };
+
 			try {
 				var args = new string[argc];
 				for (var i = 0; i < args.Length; i++) {

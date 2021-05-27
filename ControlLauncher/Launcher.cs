@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -40,10 +41,21 @@ namespace ControlLauncher {
 				};
 				process.Start();
 				return true;
+			} catch (Win32Exception ex) {
+				switch(ex.NativeErrorCode) {
+					case 2:
+						MessageBox.Show("Error launching the game: The launcher is not in Control's game directory", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+						break;
+					default:
+						MessageBox.Show($"Error launching the game: Unknown error (Code {ex.NativeErrorCode})", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+						break;
+				}
 			} catch (Exception ex) {
+				Trace.WriteLine(ex.GetType());
 				MessageBox.Show("Error launching the game: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-				return false;
 			}
+
+			return false;
 		}
 	}
 }

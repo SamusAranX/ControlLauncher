@@ -3,9 +3,6 @@ using System.Windows;
 using System.Windows.Input;
 
 namespace ControlLauncher {
-	/// <summary>
-	/// Interaction logic for AboutDialog.xaml
-	/// </summary>
 	public partial class AboutDialog : Window {
 		public AboutDialog() {
 			this.InitializeComponent();
